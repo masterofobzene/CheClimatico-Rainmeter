@@ -503,11 +503,11 @@ phrases = {
             color = "FFAE42"
         },
 		{
-            highlight = { "Rayos" },
-            title = "Rayos y Centellas!",
-            subline = "Pense que eran fotos.",
+            highlight = { "Neblina" },
+            title = "Neblina",
+            subline = "Como turco en la misma.",
             max = 3,
-            condition = "Thunderstorm",
+            condition = "mist",
             color = "FFAE42"
         },
 		{
