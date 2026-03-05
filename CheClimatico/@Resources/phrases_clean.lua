@@ -221,7 +221,7 @@ phrases = {
         {
             highlight = { "calor" },
             title = "Calor.",
-            subline = "Ya llegamos al infierno?",
+            subline = "¿Ya llegamos al infierno?",
             min = 34,
             condition = "Sunny",
             color = "FFAE42"
@@ -418,8 +418,8 @@ phrases = {
             color = "FFAE42"
         },
         {
-            highlight = { "sombrio" },
-            title = "Esta sombrio ahí afuera.",
+            highlight = { "sombrío" },
+            title = "Esta sombrío ahí afuera.",
             subline = "Parece más tarde.",
             condition = "Clouds",
             color = "FFAE42"
@@ -473,7 +473,7 @@ phrases = {
             title = "Casi congelado.",
             subline = "Está helado.",
             max = 3,
-            color = "0096FF"
+            color = "FFAE42"
         },
 		{
             highlight = { "Rayos" },
@@ -505,6 +505,5 @@ phrases = {
 function GetPhrase()
     return phrases, phrases.phrases[1].color
 end
-
 
 return { GetPhrase = GetPhrase }
