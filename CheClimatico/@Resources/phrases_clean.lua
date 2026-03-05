@@ -205,7 +205,7 @@ phrases = {
             color = "FFAE42"
         },
         {
-            highlight = { "nublado" },
+            highlight = { "Nublado" },
             title = "Nublado.",
             subline = "Como el cerebro de unos cuantos.",
             condition = "Clouds",
