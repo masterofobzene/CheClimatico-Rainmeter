@@ -4,6 +4,14 @@ function Initialize()
     -- Initialize table to store last used phrases and timestamps
     lastUsedPhrases = {}
     rotationCooldown = 300  -- 5 minutes in seconds (adjust as needed)
+    
+    -- Debug control - set to false to disable spammy logs
+    debugMode = false  -- Set to true only when troubleshooting
+    
+    -- Track last values to avoid log spam
+    lastCondition = ""
+    lastIconCode = ""
+    lastTemperature = nil
 end
 
 function Update()
@@ -32,8 +40,23 @@ function Update()
         return "No se cargaron frases"
     end
 
-    -- Get weather data
-    local weatherCondition = string.lower(SKIN:GetMeasure('Main'):GetStringValue() or "")
+    -- Get weather data from Description measure
+    local weatherCondition = string.lower(SKIN:GetMeasure('Description'):GetStringValue() or "")
+    
+    -- Get icon code from Icon measure
+    local iconCode = string.lower(SKIN:GetMeasure('Icon'):GetStringValue() or "")
+    
+    -- Only log weather changes, not every cycle
+    if debugMode and weatherCondition ~= lastCondition then
+        SKIN:Bang('!Log', 'Weather description: "' .. weatherCondition .. '"', 'Debug')
+        lastCondition = weatherCondition
+    end
+    
+    -- Only log icon changes
+    if debugMode and iconCode ~= lastIconCode then
+        SKIN:Bang('!Log', 'Icon code: "' .. iconCode .. '"', 'Debug')
+        lastIconCode = iconCode
+    end
     
     -- Get temperature (try multiple possible measure names)
     local temperature = nil
@@ -45,25 +68,37 @@ function Update()
         end
     end
     
-    -- Log temperature for debugging
-    if temperature then
-        SKIN:Bang('!Log', 'Current temperature: ' .. temperature .. '°C', 'Debug')
-    else
-        SKIN:Bang('!Log', 'Could not get temperature value', 'Debug')
+    -- Only log temperature changes
+    if debugMode and temperature ~= lastTemperature then
+        if temperature then
+            SKIN:Bang('!Log', 'Current temperature: ' .. temperature .. '°C', 'Debug')
+        else
+            SKIN:Bang('!Log', 'Could not get temperature value', 'Debug')
+        end
+        lastTemperature = temperature
     end
 
     local found = false
     local phrase = {}
 
-    -- Collect all matching phrases for current weather and temperature
+    -- Collect all matching phrases for current weather, icon, and temperature
     local matchingPhrases = {}
     for _, p in ipairs(phrases) do
-        -- Check condition match
+        -- Check condition/icon match
         local conditionMatch = false
-        if p.condition then
+
+        if p.condition and p.icon then
+            -- Both condition and icon specified: require both to match
+            conditionMatch = (string.lower(p.condition) == weatherCondition) and
+                             (string.lower(p.icon) == iconCode)
+        elseif p.condition then
+            -- Only condition specified
             conditionMatch = (string.lower(p.condition) == weatherCondition)
-        elseif not p.condition then
-            -- Phrases without condition are always considered (for temperature-only phrases)
+        elseif p.icon then
+            -- Only icon specified
+            conditionMatch = (string.lower(p.icon) == iconCode)
+        else
+            -- No condition or icon: temperature-only phrase
             conditionMatch = true
         end
         
@@ -88,21 +123,24 @@ function Update()
             
             if tempMatch then
                 table.insert(matchingPhrases, p)
-                SKIN:Bang('!Log', 'Found matching phrase: ' .. p.title, 'Debug')
+                -- Only log found phrases in debug mode
+                if debugMode then
+                    SKIN:Bang('!Log', 'Found matching phrase: ' .. p.title, 'Debug')
+                end
             end
         end
     end
 
     if #matchingPhrases > 0 then
-        -- Create a unique key combining condition and temperature range for tracking
-        local conditionKey = weatherCondition
+        -- Create a unique key combining condition, icon, and temperature range for tracking
+        local conditionKey = weatherCondition .. "_" .. iconCode
         if temperature then
             -- Round temperature to nearest 5 degrees for grouping
             local tempGroup = math.floor(temperature / 5) * 5
-            conditionKey = weatherCondition .. "_" .. tempGroup
+            conditionKey = conditionKey .. "_" .. tempGroup
         end
         
-        -- Initialize tracking for this condition/temperature group if not exists
+        -- Initialize tracking for this condition/icon/temperature group if not exists
         if not lastUsedPhrases[conditionKey] then
             lastUsedPhrases[conditionKey] = {
                 index = 0,
@@ -114,38 +152,40 @@ function Update()
         local tracker = lastUsedPhrases[conditionKey]
         local currentTime = os.time()
         
-        -- Check if we need to rotate (cooldown period passed or first time)
-        if tracker.lastUpdate == 0 or (currentTime - tracker.lastUpdate) >= rotationCooldown then
-            -- If available phrases list is empty, rebuild it
+        -- Check if we need to rotate: cooldown passed OR stored index invalid (phrase no longer matches)
+        local needRotation = (tracker.lastUpdate == 0) or 
+                             ((currentTime - tracker.lastUpdate) >= rotationCooldown) or
+                             (tracker.index == 0) or
+                             (tracker.index > #matchingPhrases) or
+                             (matchingPhrases[tracker.index] == nil)
+        
+        if needRotation then
+            -- Rebuild available phrases if empty
             if #tracker.availablePhrases == 0 then
-                -- Create a list of indices for all matching phrases
                 for i = 1, #matchingPhrases do
                     table.insert(tracker.availablePhrases, i)
                 end
             end
             
-            -- Select random index from available phrases
             if #tracker.availablePhrases > 0 then
                 local randomPos = math.random(1, #tracker.availablePhrases)
                 local selectedIndex = tracker.availablePhrases[randomPos]
-                
-                -- Remove the selected index from available phrases
                 table.remove(tracker.availablePhrases, randomPos)
                 
-                -- Use the selected phrase
                 phrase = matchingPhrases[selectedIndex]
                 tracker.index = selectedIndex
                 tracker.lastUpdate = currentTime
                 found = true
                 
-                SKIN:Bang('!Log', 'Selected phrase ' .. selectedIndex .. ' for condition: ' .. weatherCondition .. ' at temp: ' .. tostring(temperature), 'Debug')
+                -- Only log selection in debug mode
+                if debugMode then
+                    SKIN:Bang('!Log', 'Selected phrase ' .. selectedIndex .. ' for condition: ' .. weatherCondition .. ' / icon: ' .. iconCode .. ' at temp: ' .. tostring(temperature), 'Debug')
+                end
             end
         else
-            -- Cooldown not passed, keep using current phrase
-            if tracker.index > 0 and tracker.index <= #matchingPhrases then
-                phrase = matchingPhrases[tracker.index]
-                found = true
-            end
+            -- Cooldown not passed and stored index is valid → keep using current phrase
+            phrase = matchingPhrases[tracker.index]
+            found = true
         end
     end
 
@@ -158,6 +198,10 @@ function Update()
         else
             SKIN:Bang('!SetOption', 'PhraseText', 'InlinePattern', '')
         end
+        -- Force immediate update of meters
+        SKIN:Bang('!UpdateMeter', 'PhraseText')
+        SKIN:Bang('!UpdateMeter', 'SublineText')
+        SKIN:Bang('!Redraw')
         return phrase.title
     else
         SKIN:Bang('!Log', 'No se encontró una frase que matchee', 'Error')
@@ -165,6 +209,9 @@ function Update()
         SKIN:Bang('!SetOption', 'SublineText', 'Text', "Andá a cebarte un verde mientras.")
         SKIN:Bang('!SetOption', 'PhraseText', 'InlineSetting', '')
         SKIN:Bang('!SetOption', 'PhraseText', 'InlinePattern', '')
+        SKIN:Bang('!UpdateMeter', 'PhraseText')
+        SKIN:Bang('!UpdateMeter', 'SublineText')
+        SKIN:Bang('!Redraw')
         return "Cargando..."
     end
 end
