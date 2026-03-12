@@ -7,7 +7,7 @@ function Initialize()
         ["02d"] = "partly_cloudy_day.png",
         ["02n"] = "partly_cloudy_night.png",
         ["03d"] = "broken_clouds.png",
-        ["03n"] = "broken_clouds.png",
+        ["03n"] = "partly_cloudy_night.png",
 		["04d"] = "cloudy.png",
         ["04n"] = "cloudy.png",
         ["09d"] = "shower_rain.png",
