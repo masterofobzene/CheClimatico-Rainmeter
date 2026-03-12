@@ -191,15 +191,26 @@ phrases = {
             title = "Algo nublado.",
             subline = "Si, asi de tibio.",
             condition = "scattered clouds",
+			icon = "03d",
+            color = "FFAE42"
+        },
+		{
+            highlight = { "nublado" },
+            title = "Un poco nublado.",
+            subline = "Maso-meno'",
+            condition = "scattered clouds",
+			icon = "03n",
             color = "FFAE42"
         },
 		{
             highlight = { "Algunas" },
             title = "Algunas nubes.",
             subline = "Casi ni se notan.",
+			icon = "03d",
             condition = "few clouds",
             color = "FFAE42"
         },
+
 
         -- ========================================
         -- LLUVIA
@@ -612,4 +623,5 @@ return { GetPhrase = GetPhrase }
 --			icon = "01d",  <--- opcional condicion de icono (noche/dia)
 --          color = "FFAE42"
 --      },
+
 
