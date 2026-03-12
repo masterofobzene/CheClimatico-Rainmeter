@@ -218,6 +218,14 @@ phrases = {
             condition = "few clouds",
             color = "FFAE42"
         },
+		{
+            highlight = { "Nubes" },
+            title = "Nubes por aquí...",
+            subline = "Nubes por allá...",
+			icon = "02d",
+            condition = "few clouds",
+            color = "FFAE42"
+        },
 
 
         -- ========================================
@@ -631,6 +639,7 @@ return { GetPhrase = GetPhrase }
 --			icon = "01d",  <--- opcional condicion de icono (noche/dia)
 --          color = "FFAE42"
 --      },
+
 
 
 
