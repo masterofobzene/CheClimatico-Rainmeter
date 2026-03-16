@@ -16,8 +16,8 @@ phrases = {
             highlight = { "lindo" },
             title = "Esta lindo.",
             subline = "Como para andar en calzones.",
-            min = 20,
-            max = 30,
+            min = 24,
+            max = 26,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -25,7 +25,8 @@ phrases = {
             highlight = { "no" },
             title = "Esto no es normal.",
             subline = "Creo que vamos a morir.",
-            min = 30,
+            min = 34,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -33,7 +34,8 @@ phrases = {
             highlight = { "calor" },
             title = "Hace calor.",
             subline = "Se puede derretir tu silla.",
-            min = 23,
+            min = 31,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -41,7 +43,8 @@ phrases = {
             highlight = { "evapora" },
             title = "Se evapora mi saliva.",
             subline = "Dos palabras: Aire Acondicionado.",
-            min = 25,
+            min = 30,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -49,7 +52,8 @@ phrases = {
             highlight = { "mal" },
             title = "La vas a pasar mal.",
             subline = "Espero que ande el ventilador.",
-            min = 24,
+            min = 26,
+			max = 28,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -57,7 +61,8 @@ phrases = {
             highlight = { "ropas" },
             title = "Fuera ropas.",
             subline = "El nudismo no debe ser tan malo.",
-            min = 24,
+            min = 30,
+			max = 32,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -65,15 +70,17 @@ phrases = {
             highlight = { "global" },
             title = "Calentamiento global.",
             subline = "Si, echemosle la culpa.",
-            min = 30,
+            min = 27,
+			max = 30,
             condition = "clear sky",
             color = "FFAE42"
         },
         {
             highlight = { "tropical" },
             title = "Clima tropical.",
-            subline = "Creo que hay monos en las ventanas.",
-            min = 35,
+            subline = "Creo que ví un mono por la ventana.",
+            min = 30,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -81,7 +88,8 @@ phrases = {
             highlight = { "calor" },
             title = "Mucho calor.",
             subline = "Lo que mata es Buenos Aires.",
-            min = 33,
+            min = 27,
+			max = 30,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -89,7 +97,8 @@ phrases = {
             highlight = { "lorca" },
             title = "Se viene el lorca.",
             subline = "Mandá ventilador al 2020.",
-            min = 25,
+            min = 27,
+			max = 29,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -97,15 +106,17 @@ phrases = {
             highlight = { "derretimos" },
             title = "Nos derretimos.",
             subline = "Poné el aire.",
-            min = 35,
+            min = 28,
+			max = 32,
             condition = "clear sky",
             color = "FFAE42"
         },
         {
             highlight = { "Caluroso." },
             title = "Caluroso.",
-            subline = "Si, hace calor.",
-            min = 24,
+            subline = "¡Que calore!",
+            min = 26,
+			max = 29,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -113,15 +124,17 @@ phrases = {
             highlight = { "calor" },
             title = "Calor.",
             subline = "¿Ya llegamos al infierno?",
-            min = 34,
+            min = 33,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
         {
             highlight = { "insoportable" },
             title = "Calor insoportable.",
-            subline = "Ni ChatGPT tiene te salva hoy.",
-            min = 25,
+            subline = "Ni ChatGPT te salva hoy.",
+            min = 34,
+			max = 40,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -131,7 +144,7 @@ phrases = {
             highlight = { "peronista" },
             title = "¡Un día peronista!",
             subline = "Que no se corte la luz...",
-            min = 20,
+            min = 23,
             max = 26,
             condition = "clear sky",
 			icon = "01d",
@@ -143,8 +156,8 @@ phrases = {
             highlight = { "Frescolari" },
             title = "Frescolari.",
             subline = "Brrrrrrr",
-            min = 5,
-            max = 15,
+            min = 10,
+            max = 17,
             condition = "clear sky",
             color = "FFAE42"
         },
@@ -226,7 +239,6 @@ phrases = {
             condition = "few clouds",
             color = "FFAE42"
         },
-
 
         -- ========================================
         -- LLUVIA
