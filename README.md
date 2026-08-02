@@ -3,12 +3,6 @@ Un fork de Shanee's AuthenticWeather que se corrigió para que funcione con la n
 
 <img alt="NfMJxKKfUa" src="SCREENSHOT.png" />
 
->[!WARNING]
->¡La última versión de Rainmeter rompe esta skin! Por ahora, la versión máxima compatible es la 4.5.23.
->Si actualizaste podés volver a descargar la versión anterior [desde aquí](https://builds.rainmeter.net/)
->Te conviene deshabilitar el update automático de la app.
-
-
 ### Instalación:
 
 - Descargá el archivo zip desde [Releases](https://github.com/masterofobzene/CheClimatico-Rainmeter/releases).
