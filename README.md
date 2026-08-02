@@ -1,7 +1,11 @@
 # CheClimatico para Rainmeter
 Un fork de Shanee's AuthenticWeather que se corrigió para que funcione con la nueva API meteorológica, se dejan de utilizar las frases NSFW y se "argentinizó".
 
+(fondo transparente)
+
 <img alt="NfMJxKKfUa" src="SCREENSHOT.png" />
+
+
 
 ### Instalación:
 
