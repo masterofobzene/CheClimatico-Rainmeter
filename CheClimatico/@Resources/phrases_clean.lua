@@ -1,4 +1,3 @@
--- CONVERTIR A UTF-16LE USANDO NOTEPAD++ PARA QUE MUESTRE LOS SIMBOLOS Y ACENTOS 
 phrases = {
     phrases = {
         -- ========================================
@@ -651,7 +650,3 @@ return { GetPhrase = GetPhrase }
 --			icon = "01d",  <--- opcional condicion de icono (noche/dia)
 --          color = "FFAE42"
 --      },
-
-
-
-
