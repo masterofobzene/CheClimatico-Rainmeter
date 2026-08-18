@@ -1,4 +1,3 @@
--- CONVERTIR A UTF-16LE USANDO NOTEPAD++ PARA QUE MUESTRE LOS SIMBOLOS Y ACENTOS CORRECTAMENTE 
 function Initialize()
     lang = SKIN:GetVariable('lang')
     -- Initialize table to store last used phrases and timestamps
@@ -215,4 +214,3 @@ function Update()
         return "Cargando..."
     end
 end
-
