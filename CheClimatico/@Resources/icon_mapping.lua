@@ -24,9 +24,10 @@ function Initialize()
 end
 
 function Update()
-    local iconCode = SKIN:GetMeasure('Icon'):GetStringValue() -- Suponiendo que el código del ícono está en la medida 'Ícono'
-
+    local iconCode = SKIN:GetMeasure('Icon'):GetStringValue()
     local iconName = iconMap[iconCode] or "default.png"
-    
+
     SKIN:Bang('!SetVariable', 'IconMapping', iconName)
+    SKIN:Bang('!UpdateMeter', 'IconImage')
+    SKIN:Bang('!Redraw')
 end
